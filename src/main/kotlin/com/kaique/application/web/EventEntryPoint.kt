@@ -5,7 +5,9 @@ import com.kaique.application.web.broker.entities.Event
 import com.kaique.application.web.broker.producer.EventProducer
 import com.kaique.application.web.modules.eventConsumerModule
 import com.kaique.application.web.modules.eventProducerModule
+import com.kaique.application.web.modules.eventServiceModule
 import com.kaique.application.web.routes.eventRoutes
+import com.kaique.domain.services.EventService
 import io.javalin.Javalin
 import org.koin.log.EmptyLogger
 import org.koin.standalone.KoinComponent
@@ -17,11 +19,12 @@ object EventEntryPoint : KoinComponent {
 
     private val consumer: EventConsumer by inject()
     private val producer: EventProducer by inject()
+    private val service : EventService by inject()
     private val serverPort: Int by property("SERVER_PORT")
 
     fun init(extraProperties: Map<String, Any> = emptyMap()) {
         StandAloneContext.startKoin(
-            listOf(eventConsumerModule, eventProducerModule),
+            listOf(eventConsumerModule, eventProducerModule, eventServiceModule),
             useEnvironmentProperties = true,
             extraProperties = extraProperties,
             logger = EmptyLogger()
@@ -32,7 +35,7 @@ object EventEntryPoint : KoinComponent {
             start(serverPort)
         }
 
-        consumer.consume<Event<String>>()
+        consumer.consume(service::listener)
     }
 }
 
