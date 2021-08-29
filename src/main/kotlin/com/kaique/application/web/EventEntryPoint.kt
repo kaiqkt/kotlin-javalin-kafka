@@ -1,8 +1,10 @@
 package com.kaique.application.web
 
 import com.kaique.application.configs.AuthConfig
-import com.kaique.application.web.modules.*
-import com.kaique.application.web.routes.eventRoutes
+import com.kaique.application.web.modules.dependenciesModule
+import com.kaique.application.web.modules.emitEventServiceModule
+import com.kaique.application.web.modules.listenerEventServiceModule
+import com.kaique.application.web.routes.eventRoute
 import com.kaique.domain.services.EmitEventService
 import com.kaique.domain.services.ListenerEventService
 import com.kaique.resources.kafka.EventConsumer
@@ -35,7 +37,7 @@ object EventEntryPoint : KoinComponent {
 
         Javalin.create().apply {
             authConfig.configure(this)
-            routes { eventRoutes(emitEventService) }
+            routes { eventRoute(emitEventService::send) }
             start(serverPort)
         }
 

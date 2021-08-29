@@ -5,7 +5,7 @@ import com.kaique.resources.kafka.EventProducer
 
 class EmitEventService(private val eventProducer: EventProducer) {
 
-    fun send(event: Event<String>, correlationId: String?) {
-        eventProducer.emit(event, correlationId)
+    fun send(event: Event<String>) {
+        eventProducer.emit(event)
     }
 }

@@ -1,6 +1,7 @@
 package com.kaique.resources.kafka
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.kaique.domain.entities.Event
 import io.azam.ulidj.ULID
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.producer.KafkaProducer
@@ -21,10 +22,10 @@ class EventProducer(
 
     private val log: Logger = LoggerFactory.getLogger(javaClass)
 
-    inline fun <reified T> emit(event: T, correlationId: String?) = emit(event, correlationId, T::class.java)
+    inline fun <reified T> emit(event: Event<T>) = emit(event, T::class.java)
 
-    fun <T> emit(event: T, correlationId: String?, clazz: Class<T>) {
-        val record = getProducerRecord(event, correlationId, clazz)
+        fun <T> emit(event: Event<T>, clazz: Class<T>) {
+        val record = getProducerRecord(event, event.correlationId, clazz)
 
         createProducer().apply {
             send(record) { data, ex ->
@@ -37,7 +38,7 @@ class EventProducer(
         }
     }
 
-    private fun <T> getProducerRecord(event: T, correlationId: String?, clazz: Class<T>): ProducerRecord<String, String> {
+    private fun <T> getProducerRecord(event: Event<T>, correlationId: String?, clazz: Class<T>): ProducerRecord<String, String> {
         val serializedEvent = objectMapper.writeValueAsString(event)
         val eventTypeHeader = RecordHeader("eventType", objectMapper.writeValueAsBytes(clazz))
         val headers = listOf<Header>(eventTypeHeader)
