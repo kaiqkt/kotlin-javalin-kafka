@@ -1,4 +1,4 @@
-package com.kaique.application.web.config
+package com.kaique.application.configs
 
 import io.javalin.Javalin
 import io.javalin.core.security.Role

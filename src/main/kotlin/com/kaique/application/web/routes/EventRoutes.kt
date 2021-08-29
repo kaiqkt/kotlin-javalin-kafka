@@ -1,7 +1,7 @@
 package com.kaique.application.web.routes
 
 import com.kaique.domain.entities.Event
-import com.kaique.application.web.config.Roles
+import com.kaique.application.configs.Roles
 import com.kaique.domain.services.EmitEventService
 import io.javalin.apibuilder.ApiBuilder.post
 import io.javalin.http.Context

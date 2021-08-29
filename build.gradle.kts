@@ -22,6 +22,7 @@ dependencies {
     implementation ("org.slf4j:slf4j-simple:1.7.30")
     implementation ("io.azam.ulidj:ulidj:1.0.0")
     implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.5")
+    implementation("org.litote.kmongo:kmongo:4.2.8")
 
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")

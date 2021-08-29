@@ -1,6 +1,6 @@
 package com.kaique.application.web
 
-import com.kaique.application.web.config.AuthConfig
+import com.kaique.application.configs.AuthConfig
 import com.kaique.application.web.modules.*
 import com.kaique.application.web.routes.eventRoutes
 import com.kaique.domain.services.EmitEventService
@@ -24,11 +24,9 @@ object EventEntryPoint : KoinComponent {
     fun init(extraProperties: Map<String, Any> = emptyMap()) {
         StandAloneContext.startKoin(
             listOf(
-                eventConsumerModule,
-                eventProducerModule,
-                eventServiceModule,
-                authenticationModule,
-                emitEventServiceModule
+                dependenciesModule,
+                emitEventServiceModule,
+                listenerEventServiceModule
             ),
             useEnvironmentProperties = true,
             extraProperties = extraProperties,
