@@ -19,9 +19,9 @@ class EventConsumer(
 
     private val log: Logger = LoggerFactory.getLogger(javaClass)
 
-    inline fun <reified T> consume(noinline service: (T) -> Unit) = consume(T::class.java, service)
+    inline fun <reified T> onMessage(noinline service: (T) -> Unit) = onMessage(T::class.java, service)
 
-    fun <T> consume(clazz: Class<T>, service: (T) -> Unit) {
+    fun <T> onMessage(clazz: Class<T>, service: (T) -> Unit) {
         createConsumer().apply {
             subscribe(listOf(topic))
 
