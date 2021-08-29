@@ -1,17 +1,17 @@
 package com.kaique.application.web.routes
 
-import com.kaique.application.web.broker.entities.Event
-import com.kaique.application.web.broker.producer.EventProducer
+import com.kaique.domain.entities.Event
 import com.kaique.application.web.config.Roles
+import com.kaique.domain.services.EmitEventService
 import io.javalin.apibuilder.ApiBuilder.post
 import io.javalin.http.Context
 
-fun eventRoutes(eventProducer: EventProducer) {
+fun eventRoutes(emitEventService: EmitEventService) {
 
     post("/", { ctx ->
         when {
             ctx.getContentTypeWithoutCharset() == "application/vnd.event_v1+json" -> {
-                eventProducer.emit(
+                emitEventService.send(
                     ctx.body<Event<String>>(),
                     ctx.header("correlationId")
                 )

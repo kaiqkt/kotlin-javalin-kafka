@@ -1,10 +1,10 @@
 package com.kaique.domain.services
 
-import com.kaique.application.web.broker.entities.Event
+import com.kaique.domain.entities.Event
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-class EventService {
+class ListenerEventService {
 
     private val log: Logger = LoggerFactory.getLogger(javaClass)
 

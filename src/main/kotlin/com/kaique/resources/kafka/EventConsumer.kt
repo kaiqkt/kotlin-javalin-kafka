@@ -1,7 +1,6 @@
-package com.kaique.application.web.broker.consumer
+package com.kaique.resources.kafka
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.kaique.application.web.broker.entities.Event
 import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.consumer.KafkaConsumer

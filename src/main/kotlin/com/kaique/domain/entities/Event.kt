@@ -1,4 +1,4 @@
-package com.kaique.application.web.broker.entities
+package com.kaique.domain.entities
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

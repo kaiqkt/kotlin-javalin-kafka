@@ -1,15 +1,11 @@
 package com.kaique.application.web
 
-import com.kaique.application.web.broker.consumer.EventConsumer
-import com.kaique.application.web.broker.entities.Event
-import com.kaique.application.web.broker.producer.EventProducer
 import com.kaique.application.web.config.AuthConfig
-import com.kaique.application.web.modules.authenticationModule
-import com.kaique.application.web.modules.eventConsumerModule
-import com.kaique.application.web.modules.eventProducerModule
-import com.kaique.application.web.modules.eventServiceModule
+import com.kaique.application.web.modules.*
 import com.kaique.application.web.routes.eventRoutes
-import com.kaique.domain.services.EventService
+import com.kaique.domain.services.EmitEventService
+import com.kaique.domain.services.ListenerEventService
+import com.kaique.resources.kafka.EventConsumer
 import io.javalin.Javalin
 import org.koin.log.EmptyLogger
 import org.koin.standalone.KoinComponent
@@ -20,8 +16,8 @@ import org.koin.standalone.property
 object EventEntryPoint : KoinComponent {
 
     private val eventConsumer: EventConsumer by inject()
-    private val eventProducer: EventProducer by inject()
-    private val service: EventService by inject()
+    private val emitEventService: EmitEventService by inject()
+    private val listenerEventService: ListenerEventService by inject()
     private val authConfig: AuthConfig by inject()
     private val serverPort: Int by property("SERVER_PORT")
 
@@ -31,7 +27,8 @@ object EventEntryPoint : KoinComponent {
                 eventConsumerModule,
                 eventProducerModule,
                 eventServiceModule,
-                authenticationModule
+                authenticationModule,
+                emitEventServiceModule
             ),
             useEnvironmentProperties = true,
             extraProperties = extraProperties,
@@ -40,11 +37,11 @@ object EventEntryPoint : KoinComponent {
 
         Javalin.create().apply {
             authConfig.configure(this)
-            routes { eventRoutes(eventProducer) }
+            routes { eventRoutes(emitEventService) }
             start(serverPort)
         }
 
-        eventConsumer.onMessage(service::listener)
+        eventConsumer.onMessage(listenerEventService::listener)
     }
 }
 

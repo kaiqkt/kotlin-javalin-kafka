@@ -1,7 +1,7 @@
 package com.kaique.application.web.modules
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.kaique.application.web.broker.producer.EventProducer
+import com.kaique.resources.kafka.EventProducer
 import org.koin.dsl.module.module
 
 val eventProducerModule = module {
