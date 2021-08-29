@@ -16,9 +16,9 @@ val dependenciesModule = module {
     single {
         mongoDatabase(
             connectionString = ConnectionString("mongodb://${getProperty<String>("MONGODB_CONNECTION_STRING")}"),
-            username = getProperty("MONGODB_USER"),
-            password = getProperty("MONGODB_PASSWORD"),
-            databaseName = getProperty("MONGODB_DATABASE")
+            username = getProperty<String>("MONGODB_USER"),
+            password = getProperty<String>("MONGODB_PASSWORD"),
+            databaseName = getProperty<String>("MONGODB_DATABASE")
         )
     }
 

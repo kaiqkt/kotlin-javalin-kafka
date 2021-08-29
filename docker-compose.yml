@@ -39,8 +39,8 @@ services:
     ports:
       - "27017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: "zmovies"
-      MONGO_INITDB_DATABASE: "zmovies"
-      MONGO_INITDB_ROOT_PASSWORD: "zmovies"
+      MONGO_INITDB_ROOT_USERNAME: "event-service"
+      MONGO_INITDB_DATABASE: "event-service"
+      MONGO_INITDB_ROOT_PASSWORD: "event-service"
     volumes:
       - ./docker/mongodb/:/docker-entrypoint-initdb.d

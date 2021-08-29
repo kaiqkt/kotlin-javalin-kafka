@@ -17,11 +17,10 @@ repositories {
 dependencies {
     implementation("io.javalin:javalin:3.13.10")
     implementation("org.koin:koin-core:1.0.0")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.9.6")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.9.4")
     implementation("org.apache.kafka:kafka-clients:2.6.0")
     implementation ("org.slf4j:slf4j-simple:1.7.30")
     implementation ("io.azam.ulidj:ulidj:1.0.0")
-    implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.5")
     implementation("org.litote.kmongo:kmongo:4.2.8")
 
     testImplementation(kotlin("test-junit5"))
